@@ -8,7 +8,7 @@ pipeline {
     }
   }
   stages {
-    stage('Deploy on Cluster) {
+    stage('Deploy on Cluster') {
       steps {  // no container directive is needed as the maven container is the default
       kubernetesDeploy(kubeconfigId: 'kube_access',               // REQUIRED
                  configs: '<ant-glob-pattern-for-resource-config-paths>', // REQUIRED
