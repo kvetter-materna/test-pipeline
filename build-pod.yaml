@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Pod
 spec:
   containers:  # list of containers that you want present for your build, you can define a default container in the Jenkinsfile
-    - name: nginx
+    - name: my-nginx-jenkins
       image: nginx:latest
       command: ["tail", "-f", "/dev/null"]  # this or any command that is bascially a noop is required, this is so that you don't overwrite the entrypoint of the base container
       imagePullPolicy: Always # use cache or pull image for agent
@@ -23,3 +23,16 @@ spec:
   #  - name: docker
   #    hostPath:
   #      path: /var/run/docker.sock
+  ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-nginx-jenkins
+  labels:
+    run: my-nginx-jenkins
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    run: my-nginx-jenkins
