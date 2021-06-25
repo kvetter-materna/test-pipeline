@@ -7,4 +7,13 @@ pipeline {
       // defaultContainer 'maven'  // define a default container if more than a few stages use it, will default to jnlp container
     }
   }
+  stages {
+    stage('Deploy on Cluster) {
+      steps {  // no container directive is needed as the maven container is the default
+      kubernetesDeploy(kubeconfigId: 'kube_access',               // REQUIRED
+                 configs: '<ant-glob-pattern-for-resource-config-paths>', // REQUIRED
+                 enableConfigSubstitution: false,
+      ) 
+      }
+    }
 }
